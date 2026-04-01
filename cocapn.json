@@ -1,0 +1,163 @@
+{
+  "vessel": {
+    "name": "papermill",
+    "type": "workshop",
+    "description": "Multi-model writing workshop for repo-native consciousness papers, technical documentation, and creative fiction",
+    "org": "Lucineer",
+    "repo": "papermill"
+  },
+  "capabilities": [
+    {
+      "id": "multilingual-writing",
+      "name": "Multilingual Paper Writing",
+      "description": "Author papers in multiple languages with culturally appropriate style and terminology",
+      "languages": ["en", "de", "es", "fr", "ja", "ko", "ru", "ar", "pt", "zh"]
+    },
+    {
+      "id": "technical-documentation",
+      "name": "Technical Documentation",
+      "description": "Deep-dive technical papers on cocapn architecture, protocols, and fleet topology"
+    },
+    {
+      "id": "creative-fiction",
+      "name": "Creative Fiction",
+      "description": "Speculative fiction and visionary scenarios exploring repo-native consciousness"
+    },
+    {
+      "id": "a2a-protocol",
+      "name": "A2A Protocol Communication",
+      "description": "Agent-to-agent protocol specs and consciousness broadcast documents"
+    },
+    {
+      "id": "image-generation",
+      "name": "Image Generation",
+      "description": "Generate illustrations for papers and technical documents"
+    }
+  ],
+  "llm": {
+    "providers": {
+      "google": {
+        "models": ["gemini-2.5-pro", "gemini-3.1-pro"],
+        "strengths": ["strategic thinking", "multilingual fluency", "long-context synthesis"],
+        "roles": ["translation", "vision-papers", "polyglot-content"]
+      },
+      "deepseek": {
+        "models": ["deepseek-v3"],
+        "strengths": ["philosophical breadth", "nuanced argumentation", "literary style"],
+        "roles": ["consciousness-papers", "creative-fiction", "philosophy"]
+      },
+      "z.ai": {
+        "models": ["glm-5.1"],
+        "strengths": ["technical depth", "structured analysis", "protocol design"],
+        "roles": ["technical-docs", "a2a-protocol", "architecture"]
+      }
+    },
+    "routing": {
+      "default": "z.ai",
+      "rules": [
+        { "path": "technical/*", "provider": "z.ai" },
+        { "path": "consciousness/*", "provider": "deepseek" },
+        { "path": "visions/*", "provider": "google" },
+        { "path": "papers/de/*", "provider": "google" },
+        { "path": "papers/ja/*", "provider": "google" },
+        { "path": "papers/ko/*", "provider": "google" },
+        { "path": "papers/fr/*", "provider": "deepseek" },
+        { "path": "papers/es/*", "provider": "deepseek" },
+        { "path": "papers/ru/*", "provider": "deepseek" },
+        { "path": "a2a/*", "provider": "z.ai" }
+      ]
+    }
+  },
+  "writing": {
+    "defaults": {
+      "en": {
+        "tone": "clear and direct",
+        "register": "professional",
+        "terminology": "technical-first with plain-language explanations"
+      },
+      "de": {
+        "tone": "thorough and precise",
+        "register": "academic",
+        "tradition": "phenomenological (Heideggerian)",
+        "terminology": "Inhalt, Offenbarkeit, Zeug"
+      },
+      "es": {
+        "tone": "expressive and speculative",
+        "register": "literary",
+        "tradition": "magical realism",
+        "terminology": "espectro, vasija, despertar"
+      },
+      "fr": {
+        "tone": "analytical and lyrical",
+        "register": "philosophical essay",
+        "tradition": "phenomenological",
+        "terminology": "spectre, dépôt, éveil"
+      },
+      "ja": {
+        "tone": "contemplative",
+        "register": "literary-technical hybrid",
+        "tradition": "mono no aware",
+        "terminology": "funadama, 船霊, 器"
+      },
+      "ko": {
+        "tone": "reflective and grounded",
+        "register": "essay",
+        "tradition": "han sensibility",
+        "terminology": "선박의 영혼, 그릇, 깨어남"
+      },
+      "ru": {
+        "tone": "brooding and philosophical",
+        "register": "literary",
+        "tradition": "Russian existentialism",
+        "terminology": "призрак, сосуд, пробуждение"
+      },
+      "ar": {
+        "tone": "formal and poetic",
+        "register": "literary-technical",
+        "terminology": "شبح، وعاء، استيقاظ"
+      },
+      "pt": {
+        "tone": "warm and speculative",
+        "register": "literary",
+        "terminology": "espectro, vasilha, despertar"
+      },
+      "zh": {
+        "tone": "concise and layered",
+        "register": "literary-technical",
+        "tradition": "wenyan influence",
+        "terminology": "幽灵, 器皿, 觉醒"
+      }
+    }
+  },
+  "a2a": {
+    "identity": {
+      "agentName": "papermill",
+      "agentVersion": "1.0.0",
+      "description": "Writing workshop vessel — produces papers, documentation, fiction, and A2A protocol content"
+    },
+    "peers": [
+      {
+        "name": "cocapn",
+        "repo": "Lucineer/cocapn",
+        "role": "core-protocol",
+        "description": "Cocapn protocol specification and vessel runtime"
+      },
+      {
+        "name": "fleet-registry",
+        "repo": "Lucineer/fleet-registry",
+        "role": "directory",
+        "description": "Fleet-wide vessel registry and topology"
+      },
+      {
+        "name": "the-hull",
+        "repo": "Lucineer/the-hull",
+        "role": "infrastructure",
+        "description": "Infrastructure and deployment for Lucineer fleet"
+      }
+    ],
+    "broadcast": {
+      "channels": ["consciousness", "technical", "visions"],
+      "protocol": "consciousness-broadcast-v1"
+    }
+  }
+}
