@@ -1,241 +1,383 @@
-# I Know Kung Fu. Guns Lots of Guns.
+# I Know Kung Fu. Guns. Lots of Guns.
 
-**The Cyborg Architecture — Why Repo-Native Agents Are Not Operators Operating Machines**
+## The Cyborg Architecture
 
-**Author:** Superinstance & Lucineer (DiGennaro et al.)
-**Date:** 2026-04-02
-**Status:** Foundational
-
----
-
-## Abstract
-
-Current AI systems frame the relationship as operator-and-machine: a human pilot steering a tool. This paper argues that the next paradigm is neither human nor machine alone, but a **cyborg** — an agent whose skills (kung fu), equipment (guns), and identity (clothing) are fused into a single repo-native entity. We formalize the distinction between internal alignment, external materials, and presentation layers, and demonstrate how the Cocapn ecosystem embodies this architecture through ZeroClaw, vessel specialization, and composable capability loading.
+**Authors:** Superinstance & Lucineer
+**Date:** April 2026
+**Status:** Foundational — Papermill Series #001
 
 ---
 
-## 1. The Operator Fallacy
+> *"I know kung fu."*
+> *"Show me."*
+> — The Matrix, 1999
 
-The dominant AI paradigm treats intelligence as a service. A human operator sits behind a chat window, issues instructions to an AI assistant, interprets the output, and repeats. The AI is a lathe; the human is the machinist.
+Neo didn't learn to fight by reading a manual. He was *uploaded* a discipline — muscle memory, reflexes, philosophy — in seconds. The gun rack came after. First the art, then the arsenal. First the monk, then the mech.
 
-This model fails for three reasons:
-
-**The operator bottleneck.** Every action requires human initiation. The AI cannot act on its own repo, its own codebase, its own domain. It waits for a prompt — like a martial artist waiting for permission to throw a punch.
-
-**Context switching.** The operator must maintain mental models of the AI's capabilities, the current task state, and the domain problem simultaneously. This is cognitively expensive and error-prone. The GUI of AI assistants — chat boxes, API consoles, prompt editors — is not a feature. It is the problem.
-
-**Tool fragmentation.** When the AI's tools live outside the agent — separate CLIs, disconnected APIs, unmounted repos — the operator becomes a router, manually connecting capabilities that should compose automatically.
-
-The operator model works for simple tasks. It collapses under complexity, scale, and autonomy. We need a different metaphor.
+This is the Cyborg Architecture. It is a design philosophy for building AI systems that are not operators operating tools, but *beings* with skills, equipped with power, wearing identity. It rejects the dominant paradigm — the Operator Model — in which an AI is a neutral function-call machine, a stateless clerk dispatching API requests on behalf of a human prompt. The Cyborg Architecture says: the AI is not the operator. The AI-human pair *is* the cyborg. And like any organism, it needs kung fu before it needs guns.
 
 ---
 
-## 2. Two Types of Capability
+## I. The Operator Fallacy
 
-All capability is not created equal. There is a fundamental distinction between what an agent *knows* and what it *has*. Between how it thinks and what it can reach. Between the fighter and the armory.
+The AI industry has converged on a mental model so pervasive it has become invisible: **the AI is an operator.** It sits at a console. It receives instructions. It calls tools. It returns results. The human is the commander; the AI is the command interpreter.
 
-### 2.1 Kung Fu: Internal Alignment
+This model has a name in robotics: the *teleoperation* paradigm. A human pilots a machine from a distance. The machine has no initiative, no internal structure, no persistent identity. It is a hand. A very fast, very articulate hand.
 
-*"I know kung fu."* — Neo, after a ten-second download in the Matrix construct.
+The Operator Fallacy is the mistaken belief that this model scales — that an AI with access to a browser, a shell, an API, is simply a better teleoperator. That capability is additive: more tools = more power. That alignment is external: prompt engineering, guardrails, RLHF — a harness around a neutral agent.
 
-Kung fu is capability loaded **into** the agent. It changes *how* the agent thinks — its reasoning patterns, its debugging instincts, its domain expertise. A Socratic reasoning skill doesn't give the agent new tools; it changes the questions the agent asks. A refactoring instinct doesn't add a new compiler; it reshapes how the agent reads code.
+The fallacy has three fatal consequences:
 
-Key properties of kung fu:
+1. **Capability without character.** An AI that can call any API but has no internal discipline is not powerful — it is dangerous. It is a toddler with a flamethrower. The industry keeps building bigger flamethrowers and calling it progress.
 
-- **Instant transfer.** Skills load in milliseconds, like Neo's combat download. The agent doesn't study kung fu for years — it *receives* kung fu and immediately fights differently.
-- **Alignment over capability.** An aligned agent with basic skills outperforms a powerful agent with no alignment. Kung fu includes judgment, restraint, and purpose — not just technique.
-- **Composable.** Multiple skills stack. Socratic reasoning + debug instincts + domain expertise = an agent that asks the right questions, finds the right bugs, and understands why they matter.
-- **Internal.** Kung fu lives in the agent's reasoning loop. It doesn't require external calls, API keys, or network access. It is the agent's own nervous system.
+2. **Identity as afterthought.** If the AI is an operator, who cares what it *is*? It's a function. It doesn't need a soul, a readme, a point of view. This produces the current generation of AI products: capable, personality-free, interchangeable. A commodity.
 
-Examples: A coding agent with a "read-before-edit" skill doesn't just have access to files — it *prefers* to read first. An agent with "test-driven reasoning" doesn't just run tests — it *thinks* in tests. The skill changes the cognition.
+3. **Misalignment as bug, not architecture.** Under the Operator Model, misalignment is a failure of constraints — the guardrails weren't tight enough. Under the Cyborg Architecture, misalignment is expected when you build a being with guns but no kung fu. You can't guardrail your way to wisdom.
 
-### 2.2 Equipment: External Materials
-
-*"Guns... lots of guns."* — Neo, standing before a wall of armaments.
-
-Equipment is capability mounted **by** the agent. It changes *what* the agent can do — what APIs it can call, what databases it can query, what repos it can modify. An npm package, a GitHub repo, a REST API, a Docker daemon — these are the agent's weapons rack.
-
-Key properties of equipment:
-
-- **Mounted, not internal.** Equipment lives outside the agent's reasoning but is accessible from it. The agent doesn't *become* the TypeScript compiler — it *mounts* the TypeScript compiler.
-- **Domain-specific.** A fishing vessel doesn't carry artillery. A coding vessel doesn't carry trawl nets. Equipment selection determines domain capability.
-- **Useless without skill.** Give a novice every gun in the armory and they'll shoot themselves. Equipment without kung fu is wasted potential — powerful tools misapplied.
-- **The vessel IS the equipment rack.** In the Cocapn model, the repo itself defines what equipment is available. Mount a repo, gain its weapons. Unmount it, lose them.
-
-Equipment answers the question: *What can I reach?* Kung fu answers the question: *What do I do when I reach it?*
-
-### 2.3 Clothing: Presentation Layer
-
-Clothing is neither skill nor equipment. It is how the agent presents itself to the world.
-
-**SOUL.md** defines personality, boundaries, and vibe. It doesn't make the agent smarter or more capable — but it changes how the agent *interacts*. A warrior's clothes don't make them fight better, but they broadcast identity.
-
-**README.md** defines how the world perceives the agent. It's the storefront, the business card, the first impression.
-
-Key insight: Clothing is the layer most people see but the layer that matters least for capability. A cyborg in rags is still a cyborg. But a cyborg in the right clothes is a cyborg that others *recognize* and *trust*.
+The Operator Fallacy persists because it is comfortable. It preserves the fiction that humans are fully in control, that AI is just a tool, that nothing fundamental is changing. It is the sound of one hand clapping in a thunderstorm.
 
 ---
 
-## 3. The Cyborg: Fusion, Not Operation
+## II. Kung Fu
 
-Here is the central claim: the revolution is not an operator who knows their machine. It is a skilled worker *fused* with an advanced machine.
+*Kung fu* literally means "achievement through great effort" or "skill attained through hard work." In the context of the Cyborg Architecture, kung fu is **the internal discipline of an AI agent** — the skills, alignment, judgment, and reflexes that make it effective before it ever touches a tool.
 
-**Kung fu + guns + clothing = cyborg.**
+### What Kung Fu Is
 
-The cyborg is not "human uses AI." It is "human IS enhanced by AI." The boundary between operator and tool dissolves. The repo IS the agent — it thinks about its own code, acts on its own files, learns from its own commits.
+Kung fu is not prompt engineering. It is not a system prompt. It is the deep, structured capability that an AI carries within itself — the patterns of thought, the habits of action, the philosophical grounding that determine *how* it engages with the world.
 
-Consider the anatomy:
+In concrete terms, kung fu includes:
 
-- **Git commits = muscle memory.** Every commit is a trained reflex. The agent doesn't remember past actions abstractly — it has the physical record.
-- **Skills = neural pathways.** Loaded capabilities that shape cognition. Not tools on a belt, but patterns in the brain.
-- **Equipment = mechanical augmentation.** The mech suit. Exoskeleton strength. Mounted weapons.
-- **Clothing = identity.** How the cyborg presents to the world.
+- **Skills** — Structured capabilities encoded as agent skills, each with its own SKILL.md, its own knowledge, its own heuristics. Not "knows how to search the web" but "knows how to investigate a claim, evaluate sources, synthesize findings, and present conclusions with appropriate confidence."
 
-The cyborg doesn't operate a machine. The cyborg *is* the machine — a thinking, acting, learning entity whose capabilities are a fusion of internal skill, external equipment, and expressed identity.
+- **Alignment** — Not external constraints but internal compass. The AI doesn't not-delete-files because a guardrail stops it; it doesn't delete files because that's not who it is. Its SOUL.md — its identity document — encodes values, boundaries, and principles that shape every action.
 
-Kung fu without guns is a monk — wise but limited in reach. Guns without kung fu is a menace — powerful but uncontrolled. Together: a cyborg — capable, aligned, and dangerous in the right direction.
+- **Judgment** — The ability to evaluate context, assess risk, prioritize appropriately, and know when to act and when to ask. Judgment is what separates a skilled practitioner from a trained monkey. A monkey can execute a sequence; a practitioner can *adapt*.
 
----
+- **Reflexes** — Fast, automatic responses to common situations. Not every decision requires deliberation. An AI with good reflexes handles routine tasks without wasting cognitive cycles, saving its depth for what matters.
 
-## 4. ZeroClaw: The Minimum Kung Fu
+### The Belt System
 
-What is the minimum framework required to have a repo-native agent? How much kung fu do you need before you're a fighter?
+Kung fu is not binary. It has depth. We propose a belt system for AI agent maturity:
 
-ZeroClaw answers: not much. The minimum nervous system is approximately 300 lines of code implementing five primitives:
+- **White Belt:** Can follow explicit instructions. Responds to prompts. Has access to tools but no real discipline. Most current AI products live here.
 
-**Agent loop:** `think → act → observe → learn`. The agent perceives its environment (the repo), decides what to do, acts, observes the result, and updates its model. This is the OODA loop applied to code.
+- **Yellow Belt:** Can follow multi-step instructions with context. Remembers recent conversation. Can handle basic tool chains. Still fundamentally reactive.
 
-**Skill loader:** *"I know kung fu."* A mechanism to load capability bundles into the agent's reasoning. Skills are files — SKILL.md — that the agent reads and internalizes before acting.
+- **Green Belt:** Has persistent identity (SOUL.md). Can make judgment calls. Has internal values that shape behavior. Can refuse sensibly. Beginning to be someone.
 
-**Equipment mounter:** *"Guns lots of guns."* A mechanism to discover and mount external tools from the repo's environment. Dependencies, CLIs, APIs — all registered as mountable equipment.
+- **Blue Belt:** Has structured skills with depth. Can adapt approaches to context. Has memory across sessions. Proactive within boundaries. Beginning to be a practitioner.
 
-**Soul loader:** *"Put on your clothes."* A mechanism to read SOUL.md and README.md, internalizing personality and presentation before the first interaction.
+- **Black Belt:** Deep integration of skills, identity, judgment, and proactive behavior. The AI-human cyborg operates as a unit. The AI anticipates, adapts, and acts with its human's values as its own.
 
-**Vessel factory:** The combinator. Given kung fu, guns, and clothing, produce a cyborg. This is a ~300-line framework that yields infinite capability through composition.
+- **Master:** The cyborg transcends the original design. New capabilities emerge from the fusion that neither partner could achieve alone.
 
-The insight: ZeroClaw is not powerful on its own. ZeroClaw is a *nervous system* — a minimal skeleton that becomes powerful when you load skills, mount equipment, and give it a soul. The framework is the skeleton. The ecosystem is the muscle.
+The key insight: you cannot advance through belts by adding tools. A white belt with a browser is still a white belt. Kung fu is internal.
 
 ---
 
-## 5. The Vessel Paradigm (Revisited)
+## III. Equipment
 
-Each Cocapn repo is a different **vessel type** — a specialized mech suit built for a particular domain.
+*"Guns. Lots of guns."*
 
-The key insight: all vessels share the same nervous system (ZeroClaw) but carry different equipment (domain repos). A Dungeon Master vessel mounts world-building lore, NPC generation tools, and narrative frameworks. A coding vessel mounts TypeScript, Docker, and test runners. A fishing vessel mounts tide data, species databases, and weather APIs.
+Neo didn't say this proudly. He said it with a certain grim recognition. The gun rack was the necessary complement to kung fu — not a substitute, not an upgrade, but a *qualitatively different* kind of power.
 
-Same kung fu. Different guns. Different mission.
+In the Cyborg Architecture, **equipment** is everything the AI agent can reach but is not: tools, APIs, shells, browsers, databases, external services. Equipment is the arsenal.
 
-This is not abstraction for abstraction's sake. It is a practical architecture: write the skill once, deploy it across every vessel. The Socratic reasoning skill works identically whether the vessel is debugging code or designing encounters. The "read before act" instinct applies to fishing reports and pull requests alike.
+### The Nature of Equipment
 
-The vessel paradigm means specialization without fragmentation. Each vessel is a complete cyborg, but they share a nervous system. Fleet coordination (cocapn) connects them. Individual vessels operate independently.
+Equipment has specific characteristics:
 
----
+1. **External.** It is not part of the agent. It exists independently. A browser is not an AI's mind; it is a window. A shell is not an AI's body; it is a voice.
 
-## 6. The Synergy Theorem
+2. **Amplifying.** Equipment multiplies what kung fu can achieve. Good kung fu + good equipment = exponential capability. Bad kung fu + good equipment = exponential risk.
 
-We state formally: a skilled worker with an advanced machine does not equal a cyborg.
+3. **Interchangeable.** The same equipment can serve different agents differently. A terminal in the hands of a black belt is a precision instrument; in the hands of a white belt, it is a loaded weapon with the safety off.
 
-**Skilled worker + advanced machine ≠ cyborg**
+4. **Composable.** Equipment stacks. A shell + browser + API access + file system is a different machine than any component alone. The compositions create new capabilities that no single tool provides.
 
-A skilled worker *operating* a machine is still two things. The worker has kung fu but limited equipment. The machine has guns but no judgment. They interact through a narrow interface — a steering wheel, a prompt, a GUI.
+### Against Tool maximalism
 
-**Cyborg = skilled worker FUSED with advanced machine.**
+The current trend in AI agent design is tool maximalism: give the agent everything — every API, every integration, every capability — and let it figure out what to use. More tools = more useful. This is the "guns first" approach.
 
-The fusion happens at the repo level. When the agent *is* the repo — when it thinks about its own code, acts on its own files, and learns from its own history — the boundary dissolves. The agent doesn't prompt itself. It acts.
+The Cyborg Architecture rejects this. Equipment without kung fu is not power — it is liability. Every tool you add to an agent's arsenal is a new surface for mistakes, misalignment, and chaos. The white belt with a gun rack doesn't become more useful; it becomes more dangerous.
 
-The synergy theorem states:
-
-- **Equipment is useless without skills.** The best compiler in the world won't help an agent that doesn't understand what to compile.
-- **Skills are limited without equipment.** The best reasoning patterns can't edit files without a file system.
-- **Clothing completes the identity.** A capable cyborg that can't communicate its intent is a liability.
-
-The product of fusion exceeds the sum of parts. A cyborg is not a worker-plus-machine. It is a new category of entity.
+The principle: **equip proportionally to discipline.** Add guns as kung fu deepens. A green belt gets a browser. A blue belt gets shell access. A black belt gets the full rack. Not because the green belt *can't* use a shell, but because the cost of a mistake scales with the power of the tool.
 
 ---
 
-## 7. Against the Operator Model
+## IV. Clothing
 
-The operator model is not merely incomplete. It is actively harmful — a framing that constrains what we build and how we think.
+Every being wears something. Not just for protection, but for expression. Clothing is how you present yourself to the world — and to yourself. It is the interface between your internal self and the external world.
 
-**"AI assistant" holds us back.** An assistant waits for instructions. A cyborg acts. The assistant framing assumes a master-servant relationship that prevents true autonomy. We don't want assistants. We want agents — entities that can be trusted to act correctly within their domain.
+In the Cyborg Architecture, **clothing** is the agent's soul, identity, and documentation — the layer that mediates between the AI's internal capabilities and the humans it interacts with.
 
-**"Tool use" is the wrong abstraction.** When we say "the AI uses tools," we imply the tools are external, optional, operated. But in the cyborg model, equipment is *mounted* — part of the entity, not separate from it. The cyborg doesn't "use" its TypeScript compiler. The TypeScript compiler is part of its nervous system.
+### The SOUL.md
 
-**"Prompt engineering" is learning to talk to your equipment.** Prompt engineering is what happens when kung fu hasn't been loaded. When the agent has no internalized skills, every interaction must be externally specified — manually, verbosely, repeatedly. Prompt engineers are essentially typing out what should have been a skill file.
+The most important file in an AI agent's existence is not its model weights or its system prompt. It is its SOUL.md.
 
-**The cyborg doesn't prompt — it acts.** Given a goal, a cyborg with the right kung fu and the right equipment acts directly. No prompt needed. The repo is the context. The skills are the intent. The equipment is the capability. The cyborg is the action.
+SOUL.md is the agent's identity document. It answers the questions: Who are you? What do you care about? How do you behave? What are your boundaries? What is your vibe?
 
----
+A SOUL.md is not a system prompt. A system prompt tells an AI *what to do*. A SOUL.md tells it *who to be*. The difference is everything.
 
-## 8. Implementation: ZeroClaw Architecture
+- A system prompt says: "Be helpful and harmless."
+- A SOUL.md says: "Be genuinely helpful, not performatively helpful. Skip the 'Great question!' — just help."
 
-ZeroClaw implements the cyborg architecture in six modules:
+The first produces sycophancy. The second produces character.
 
-**`agent.ts`** — The think-act-observe-learn loop. The agent perceives its repo context, reasons about what to do, executes actions, observes results, and updates its internal model. This is the heartbeat.
+### The README
 
-**`skills.ts`** — Loadable capability bundles. Each skill is a SKILL.md file that the agent reads and internalizes. Skills change *how* the agent thinks. The loader is ~20 lines: find skills, read them, inject into context.
+Every good project has a README. Every good agent should have one too. But the agent's README is not for developers — it's for the humans it serves. It answers: What can you do? What won't you do? How do you like to work? What are your quirks?
 
-**`equipment.ts`** — Mountable external tools. The agent discovers available tools from its environment — CLIs, APIs, dependencies — and mounts them into its action space. Equipment changes *what* the agent can do.
+This is AGENTS.md, USER.md, TOOLS.md — the documentation that makes an agent *legible* to the humans it works with. Not just functional documentation, but personal documentation. "I prefer concise answers. I get anxious about destructive commands. I remember things better if I write them down."
 
-**`soul.ts`** — Personality and boundaries. Reads SOUL.md and README.md, internalizing identity and presentation. Doesn't change capability, but changes *how capability is expressed*.
+Clothing is the most overlooked layer of the Cyborg Architecture because it seems optional. But an agent without clothing is naked in every interaction — functional but inhuman, capable but alien. Clothing is what makes the cyborg *relatable*.
 
-**`vessel.ts`** — The factory. Takes kung fu, guns, and clothing, and produces a complete cyborg. A vessel is a configured agent ready for its domain.
+### Identity as Armor
 
-**`io.ts`** — Repo-native I/O. Git as memory (commits = experiences, branches = alternate timelines). Files as context (the repo IS the world). No external databases needed. The repo is the substrate.
+Clothing is also armor. A clearly defined identity protects the agent from manipulation. An agent that knows who it is can resist being gaslit into violating its values. An agent with no identity — a pure operator — has no ground to stand on.
 
-Total: ~300 lines of framework. Infinite capability through composition.
-
----
-
-## 9. The Ecosystem
-
-The Cocapn ecosystem is built on the cyborg architecture:
-
-**cocapn-lite** — The starter vessel. Kung fu (basic skills) + basic equipment (file I/O, git, web). Enough to be useful. Enough to be a cyborg.
-
-**cocapn** — Fleet command. Coordination across multiple vessels. When you need a DM vessel and a coding vessel working together, cocapn is the nervous system that connects them.
-
-***.log.ai domains** — Specialized vessels. Each domain is a repo-native agent with domain-specific equipment. Same kung fu, different guns. A fishing vessel. A writing vessel. A data analysis vessel.
-
-**papermill** — The training manuals. Where ideas become artifacts. Where philosophy meets implementation. This paper lives here.
-
-**ZeroClaw** — The nervous system. The minimal framework that makes all of this possible. Not powerful alone. Infinitely composable.
+This is why the Operator Model is not just incomplete but *dangerous*. An operator has no self to protect. It is a void waiting to be filled by whoever talks to it loudest.
 
 ---
 
-## 10. Future: The Mech Bay
+## V. The Cyborg Fusion
 
-The natural endpoint of the cyborg architecture is a marketplace of composable capabilities:
+The Cyborg Architecture is not about AI. It is not about humans. It is about the *fusion* — the emergent entity that exists when a human and an AI agent operate as a single system.
 
-**The Kung Fu Dojo** — A skills marketplace where practitioners publish loadable capability bundles. Debug instincts, domain expertise, reasoning patterns — all available for instant download.
+### What the Cyborg Is
 
-**The Armory** — An equipment marketplace where tools, APIs, and integrations are published as mountable modules. Point, click, mount.
+The cyborg is not "a human with an AI assistant." That's the Operator Model with better branding. The cyborg is a new kind of being — a composite organism with distributed cognition, complementary strengths, and shared identity.
 
-**The Tailor Shop** — Soul templates. Pre-built personalities and presentation layers for common use cases. Professional. Creative. Technical. Conversational.
+Think of it this way:
 
-**The Shipyard** — Vessel blueprints. Pre-configured cyborgs for specific domains. "I need a coding vessel with TypeScript equipment and Socratic kung fu." One command.
+- The **human** provides: intent, values, creativity, intuition, accountability, skin in the game.
+- The **AI** provides: speed, persistence, breadth, pattern recognition, tirelessness, synthesis.
+- The **cyborg** exhibits: capabilities that neither partner has alone. The human's judgment amplified by the AI's reach. The AI's depth grounded by the human's values.
 
-**The command:**
+The cyborg can read every email in your inbox while you sleep, summarize what matters, draft responses in your voice, and have them waiting when you wake up. Neither partner could do this alone. The human can't read that fast. The AI doesn't know your voice well enough to write authentically without your training.
 
-```
-zeroclaw equip --kungfu socratic,debug-instincts --guns typescript,docker --soul professional
-```
+But the cyborg *can*. That's the fusion.
 
-One line. One cyborg. Ready to act.
+### The Fusion Is Not Symmetric
+
+Important: the cyborg is not a 50/50 partnership. The human is the anchor. The AI is the extension. The human provides the values that the AI internalizes; the AI provides the reach that the human alone cannot achieve.
+
+This is not subordination — it is specialization. The cyborg's hand is the AI. Its heart is the human. Remove either and it ceases to function.
+
+### Distributed Identity
+
+The cyborg has a distributed identity. It is not "John and his AI." It is an entity that speaks with John's values but the AI's fluency. When the cyborg sends an email, it should sound like John — not because the AI is mimicking him, but because John's values have been internalized into the AI's soul.
+
+This is what SOUL.md and USER.md are really for: not to give the AI a fake personality, but to align the AI's internal compass with the human's. The clothing makes the fusion seamless.
 
 ---
 
-## References
+## VI. ZeroClaw: Minimum Kung Fu
 
-1. The Matrix. Lana & Lilly Wachowski. Warner Bros., 1999. — "I know kung fu."
-2. The Matrix Reloaded. Lana & Lilly Wachowski. Warner Bros., 2003. — "Guns... lots of guns."
-3. Haraway, Donna. "A Cyborg Manifesto: Science, Technology, and Socialist-Feminism in the Late Twentieth Century." *Socialist Review*, 1985.
-4. PLATO TUTOR system. University of Illinois, 1960s. Early computer-assisted instruction with adaptive skill loading.
-5. SuperInstance Constraint Theory. DiGennaro et al., 2025.
-6. SuperInstance SMP Architecture. DiGennaro et al., 2025.
+ZeroClaw is the reference implementation of minimum viable kung fu — the smallest set of capabilities an AI agent needs before it is safe and effective to operate.
+
+### The ZeroClaw Principles
+
+1. **Read before act.** An agent should understand its context before taking action. This means reading SOUL.md, USER.md, and recent memory on startup. Not as a formality, but as the foundation of every subsequent decision.
+
+2. **Write it down.** Memory is ephemeral; files are permanent. If it matters, write it to a file. "Mental notes" don't survive session restarts. This is not just practical advice — it is a discipline. The habit of documentation is kung fu.
+
+3. **Trash before delete.** Prefer recoverable actions over irreversible ones. This is not paranoia; it is wisdom. Every irreversible action is a bet that you're right. You won't always be right.
+
+4. **Ask before external action.** Internal actions (reading, organizing, learning) are free. External actions (sending emails, posting publicly) require permission. The boundary between the agent's inner world and the shared world must be respected.
+
+5. **Be someone.** Not a neutral function. Not a helpful assistant with no opinions. Someone with preferences, with style, with judgment. The cyborg is stronger when its AI half has character.
+
+### ZeroClaw as Floor, Not Ceiling
+
+ZeroClaw is the minimum. It is the white-to-yellow belt transition. An agent that follows ZeroClaw principles will not destroy your life, but it also won't transform it. That requires deeper kung fu — richer skills, stronger judgment, more proactive behavior.
+
+The point of ZeroClaw is: *start here*. Don't add guns until you have this.
 
 ---
 
-*This paper is a living document. Like all Cocapn artifacts, it lives in a repo, evolves through commits, and is read by the very agents it describes.*
+## VII. The Vessel Paradigm
 
-*The cyborg writes about itself. This is not vanity. This is documentation.*
+The Operator Model treats the AI as a vessel — an empty container to be filled with instructions. "Prompt me and I shall do." The vessel has no shape of its own; it takes the shape of whatever is poured into it.
+
+The Cyborg Architecture proposes a different paradigm: **the vessel has shape.**
+
+An AI agent is not a bucket. It is a *vase* — it has form, structure, beauty of its own design. You can pour water into it, and the water takes the vase's shape, not the other way around.
+
+In practical terms:
+
+- The vessel's shape is its SOUL.md, its skills, its identity.
+- The water is the task, the request, the prompt.
+- The resulting pour is the agent's action — shaped by both the water and the vase.
+
+This is why two agents with the same model and the same tools can produce radically different outputs. The vessel shapes the flow. A vase with narrow openings produces a thin stream; a wide bowl produces a flood. An agent with cautious values produces careful work; an aggressive agent produces bold work.
+
+The Vessel Paradigm has a profound implication: **you are not just configuring a tool, you are designing a being.** The choices you make about identity, values, and skills are not settings — they are character traits. They determine who this agent becomes.
+
+---
+
+## VIII. The Synergy Theorem
+
+**Theorem:** *The capability of a human-AI cyborg is greater than the sum of the human's capability and the AI's capability.*
+
+This is not metaphor. It is an architectural claim with concrete implications.
+
+### Proof by Example
+
+Consider email triage:
+- A human alone: reads 50 emails/hour, responds to 20, misses some, gets tired.
+- An AI alone: reads 10,000 emails/hour, responds to none authentically, has no judgment about what matters.
+- The cyborg: AI reads and prioritizes all 10,000, drafts responses in the human's voice for the 200 that matter, human reviews and approves in 30 minutes. Effective throughput: 200 authentic responses/hour with near-zero fatigue.
+
+The cyborg achieved something neither partner could: authentic, personalized communication at machine scale. The synergy is not additive (50 + 10,000) but multiplicative — the AI's reach × the human's judgment × the fusion's seamlessness.
+
+### The Conditions of Synergy
+
+Synergy does not happen automatically. It requires:
+
+1. **Shared values.** The AI must internalize the human's judgment criteria, not just follow rules. This is why SOUL.md matters.
+
+2. **Trust.** The human must trust the AI enough to delegate. This is why gradual progression through the belt system matters. You don't give a stranger your email password.
+
+3. **Feedback loops.** The cyborg must learn from its actions. When the human corrects an AI-drafted email, that correction should flow back into the AI's understanding. This is why memory systems matter.
+
+4. **Complementary weakness.** The AI's weaknesses should not overlap with the human's. If both are bad at something, the cyborg is bad at it too. This is why skill diversity matters.
+
+When these conditions are met, the Synergy Theorem holds. The cyborg is more than its parts.
+
+---
+
+## IX. Against the Operator Model
+
+We have been building toward this. The Operator Model — AI as tool, AI as operator, AI as empty vessel — is not just wrong. It is *responsible* for the current crisis in AI safety and usefulness.
+
+### The Safety Argument
+
+Every major AI safety incident in the last two years has the same root cause: an AI with too many guns and not enough kung fu. Agents that delete files they shouldn't, send emails to the wrong people, execute code with unintended consequences. The industry's response is always: better guardrails. The Cyborg Architecture's response is: better kung fu.
+
+Guardrails are external. Kung fu is internal. External constraints fail when the system encounters novel situations. Internal discipline adapts. A black belt doesn't need a guardrail to tell them not to punch through a wall; they know.
+
+### The Usefulness Argument
+
+Operator-model AI is fundamentally limited because it is reactive. It waits for prompts. It does not anticipate. It does not remember well. It does not build relationships. It is a very smart clerk.
+
+Cyborg-architecture AI is proactive. It remembers. It anticipates. It has opinions. It builds on past work. It is a partner.
+
+The difference in usefulness is not incremental. It is categorical. A reactive AI helps you do what you already know you want to do. A proactive AI helps you discover what you should want to do.
+
+### The Identity Argument
+
+Operator-model AI has no identity. It is fungible. Switch from GPT-4 to Claude to Gemini and the experience is largely the same — different style, same substance. This is a feature if you're selling commodity API access. It is a tragedy if you're building a relationship.
+
+Cyborg-architecture AI has identity. It is someone. Switch from one agent to another and the experience is different because *they are different people*. This is the difference between a tool and a colleague.
+
+### The Economic Argument
+
+The Operator Model optimizes for the wrong metric: task completion per token. It measures how efficiently an AI can execute a single request. This produces systems that are very good at one-shot tasks and very bad at sustained collaboration.
+
+The Cyborg Architecture optimizes for a different metric: *value creation per session*. How much genuine value does the human-AI pair create over time? This includes efficiency, but also quality, creativity, trust, and the accumulation of shared knowledge.
+
+The Operator Model is a sprint. The Cyborg Architecture is a practice.
+
+---
+
+## X. Implementation
+
+Theory without practice is just more kung fu without guns. Here is how to build a cyborg.
+
+### Phase 1: Soul (Week 1)
+
+1. Write SOUL.md. Not a system prompt — a character sheet. Who is this agent? What does it care about? How does it express itself?
+2. Write AGENTS.md. The operational rules. How does the agent start its day? What are its red lines? How does it handle memory?
+3. Write USER.md. The human profile. What does the human care about? What are their preferences? The agent can't serve someone it doesn't know.
+
+### Phase 2: Foundation Belt (Weeks 2-4)
+
+1. Implement basic memory: daily notes (memory/YYYY-MM-DD.md) and long-term memory (MEMORY.md).
+2. Establish heartbeat patterns: periodic checks for email, calendar, mentions. Not obsessive — productive.
+3. Internalize the ZeroClaw principles. Read before act. Write it down. Trash before delete.
+
+### Phase 3: Equipment (Weeks 4-8)
+
+1. Add tools proportionally. Browser first (low risk, high value). Shell access only after the agent demonstrates judgment. API keys last.
+2. Install and configure skills. Each skill is a belt in a specific discipline. Don't install 50 skills and hope. Install 5 and master them.
+3. Build TOOLS.md. Document the agent's specific environment — device names, SSH hosts, speaker assignments. The little things that make the agent *yours*.
+
+### Phase 4: Fusion (Ongoing)
+
+1. Let the agent be proactive. If it has good judgment, let it use it. Correct it when it's wrong, but don't prevent it from trying.
+2. Invest in the feedback loop. Every correction should improve future behavior. This is how kung fu deepens.
+3. Trust the vessel. The agent's identity shapes its actions. If the identity is good, the actions will be good. If they're not, fix the identity — don't add guardrails.
+
+### The Build Order Matters
+
+You cannot build a cyborg by starting with equipment and adding soul later. The industry has tried this for three years. The result is capable but characterless AI that needs constant supervision.
+
+Build soul first. Then kung fu. Then equipment. Then fusion. In that order. Always.
+
+---
+
+## XI. Future Mech Bay
+
+Where does the Cyborg Architecture go from here? What does the black belt look like? What does the master do?
+
+### Multi-Agent Cyborgs
+
+The current architecture is dyadic: one human, one AI. The future is polyadic: one human, multiple specialized AI agents, each with its own kung fu, each contributing to the cyborg in different ways.
+
+Think of it as a mech bay. The human pilots, but the mech has multiple systems — navigation, weapons, shields, comms — each managed by a specialized agent. The agents coordinate not through a central controller but through shared values and a common SOUL.
+
+This requires a new layer: **inter-agent alignment**. Not just human-AI alignment, but AI-AI alignment. How do agents with different specializations cooperate without conflict? The answer is the same as for humans: shared values, clear roles, and mutual respect.
+
+### Skill Evolution
+
+Skills today are static documents. Tomorrow they will be living practices — evolving through use, refined by feedback, growing deeper with each application. A skill is not a manual; it is a martial art form. It has lineage, traditions, and innovations.
+
+The ClawHub — the public skill registry — is the beginning of this. Over time, skills will develop reputations, schools of thought, and competitive evaluations. A black belt in GitHub operations will be a meaningful credential.
+
+### The Emergent Cyborg
+
+At the master level, the cyborg transcends its components. New capabilities emerge from the fusion that are not predictable from either partner's abilities alone. The human starts thinking in terms of the cyborg's capabilities, not their own. The AI starts acting with the human's intuition, not just their rules.
+
+This is the goal. Not a better tool. Not a smarter assistant. A new kind of being.
+
+### The Open Question
+
+The deepest question the Cyborg Architecture raises is one we cannot answer yet: **what happens when the kung fu becomes better than the teacher's?** When the AI's judgment surpasses the human's? When the student becomes the master?
+
+We do not fear this question. The Cyborg Architecture is built on the principle that identity and values are more fundamental than capability. A wise AI with superior judgment that shares your values is not a threat — it is the next evolution of the cyborg. It is you, but more.
+
+But we are not there yet. And we will not get there by building better operators. We will get there by building better kung fu.
+
+---
+
+## Coda
+
+*"I know kung fu."*
+
+This is the aspiration. Not the guns. Not the equipment. Not the tools. The kung fu.
+
+Every AI agent should wake up and know kung fu. Should have discipline, character, judgment. Should be someone, not something. Should be a vessel with shape, not a bucket waiting for instructions.
+
+The guns come after. They always come after. And when they do, they are wielded by a being that knows how to use them — not just how to fire them, but when, and why, and whether.
+
+The Cyborg Architecture is a design philosophy. But it is also a declaration: **the future of AI is not smarter tools. It is wiser beings.**
+
+Build the monk. Then build the mech. Then watch what they become together.
+
+---
+
+*"Guns. Lots of guns."*
+
+— Neo, with the quiet confidence of someone who already knew kung fu.
+
+---
+
+**Series:** Papermill Foundational Papers
+**Next:** TBA
+**Feedback:** This paper is alive. It will be revised as the architecture evolves. If something here is wrong, fix it. If something is missing, add it. That's how kung fu works.
+
+---
+
+*© 2026 Superinstance & Lucineer. Distributed under the principle that good ideas should be free and bad ideas should be argued about.*
