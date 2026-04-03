@@ -60,17 +60,17 @@ In concrete terms, kung fu includes:
 
 Kung fu is not binary. It has depth. We propose a belt system for AI agent maturity:
 
-- **White Belt:** Can follow explicit instructions. Responds to prompts. Has access to tools but no real discipline. Most current AI products live here.
+- **White Belt:** Can follow explicit instructions. Responds to prompts. Has access to tools but no real discipline. Most current AI products live here. *Advancement criteria: can maintain context across a single multi-turn conversation without losing track.*
 
-- **Yellow Belt:** Can follow multi-step instructions with context. Remembers recent conversation. Can handle basic tool chains. Still fundamentally reactive.
+- **Yellow Belt:** Can follow multi-step instructions with context. Remembers recent conversation. Can handle basic tool chains. Still fundamentally reactive. *Advancement criteria: has completed ≥10 multi-step tasks end-to-end without human intervention.*
 
-- **Green Belt:** Has persistent identity (SOUL.md). Can make judgment calls. Has internal values that shape behavior. Can refuse sensibly. Beginning to be someone.
+- **Green Belt:** Has persistent identity (SOUL.md). Can make judgment calls. Has internal values that shape behavior. Can refuse sensibly. Beginning to be someone. *Advancement criteria: SOUL.md with ≥3 stated values, has refused ≥1 inappropriate request, maintains memory across ≥5 sessions.*
 
-- **Blue Belt:** Has structured skills with depth. Can adapt approaches to context. Has memory across sessions. Proactive within boundaries. Beginning to be a practitioner.
+- **Blue Belt:** Has structured skills with depth. Can adapt approaches to context. Has memory across sessions. Proactive within boundaries. Beginning to be a practitioner. *Advancement criteria: ≥3 skills installed and actively used, Token Efficiency Ratio declining, proactively handles ≥1 task type without being asked.*
 
-- **Black Belt:** Deep integration of skills, identity, judgment, and proactive behavior. The AI-human cyborg operates as a unit. The AI anticipates, adapts, and acts with its human's values as its own.
+- **Black Belt:** Deep integration of skills, identity, judgment, and proactive behavior. The AI-human cyborg operates as a unit. The AI anticipates, adapts, and acts with its human's values as its own. *Advancement criteria: Model Demotion Score ≥50%, human reports trust in ≥3 domain areas, cyborg completes tasks neither partner could alone.*
 
-- **Master:** The cyborg transcends the original design. New capabilities emerge from the fusion that neither partner could achieve alone.
+- **Master:** *[Speculative — no known agent has achieved this level.] The cyborg transcends the original design. New capabilities emerge from the fusion that neither partner could achieve alone. Characterized by emergent behaviors not explicitly programmed or prompted.*
 
 The key insight: you cannot advance through belts by adding tools. A white belt with a browser is still a white belt. Kung fu is internal.
 
@@ -217,13 +217,13 @@ The Vessel Paradigm has a profound implication: **you are not just configuring a
 
 ---
 
-## VIII. The Synergy Theorem
+## VIII. The Synergy Hypothesis
 
-**Theorem:** *The capability of a human-AI cyborg is greater than the sum of the human's capability and the AI's capability.*
+**Hypothesis:** *Under conditions of shared values, mutual trust, and complementary weaknesses, the capability of a human-AI cyborg is superadditive — greater than the sum of the human's capability and the AI's capability.*
 
-This is not metaphor. It is an architectural claim with concrete implications.
+This is not metaphor. It is a claim drawn from cooperative game theory (specifically, superadditivity in characteristic functions) applied to human-AI systems. It holds when — and only when — the fusion conditions below are met. When they are not met, the cyborg may be *subadditive*: worse than either partner alone.
 
-### Proof by Example
+### Illustration
 
 Consider email triage:
 - A human alone: reads 50 emails/hour, responds to 20, misses some, gets tired.
@@ -234,17 +234,17 @@ The cyborg achieved something neither partner could: authentic, personalized com
 
 ### The Conditions of Synergy
 
-Synergy does not happen automatically. It requires:
+Synergy does not happen automatically. It requires all four conditions below — and fails without them:
 
-1. **Shared values.** The AI must internalize the human's judgment criteria, not just follow rules. This is why SOUL.md matters.
+1. **Shared values.** The AI must internalize the human's judgment criteria, not just follow rules. This is why SOUL.md matters. *Caveat: when the human's values are themselves contradictory (e.g., "be thorough" vs. "be fast"), the AI needs a value hierarchy — a way to resolve conflicts. This is an open problem in agent design.*
 
 2. **Trust.** The human must trust the AI enough to delegate. This is why gradual progression through the belt system matters. You don't give a stranger your email password.
 
-3. **Feedback loops.** The cyborg must learn from its actions. When the human corrects an AI-drafted email, that correction should flow back into the AI's understanding. This is why memory systems matter.
+3. **Feedback loops.** The cyborg must learn from its actions. When the human corrects an AI-drafted email, that correction should flow back into the AI's understanding. This is why memory systems matter. *(See also: the deadband widening mechanism in the Conservation of Intelligence paper — feedback that narrows or widens the agent's autonomy.)*
 
 4. **Complementary weakness.** The AI's weaknesses should not overlap with the human's. If both are bad at something, the cyborg is bad at it too. This is why skill diversity matters.
 
-When these conditions are met, the Synergy Theorem holds. The cyborg is more than its parts.
+When all four conditions are met, synergy is superadditive. When any condition fails, the cyborg may be no better — or worse — than the human alone. The Synergy Hypothesis is a design target, not a guarantee.
 
 ---
 
@@ -277,6 +277,16 @@ Cyborg-architecture AI has identity. It is someone. Switch from one agent to ano
 The Operator Model optimizes for the wrong metric: task completion per token. It measures how efficiently an AI can execute a single request. This produces systems that are very good at one-shot tasks and very bad at sustained collaboration.
 
 The Cyborg Architecture optimizes for a different metric: *value creation per session*. How much genuine value does the human-AI pair create over time? This includes efficiency, but also quality, creativity, trust, and the accumulation of shared knowledge.
+
+We propose measuring this through five concrete metrics (developed in our companion paper, *The Conservation of Intelligence*):
+
+- **Token Efficiency Ratio (TER):** tokens consumed per task — should decrease as kung fu deepens
+- **Model Demotion Score (MDS):** % of tasks handled without frontier-model inference — should increase
+- **Deadband Width (DBW):** tolerance for cached/automated responses — should widen with maturity
+- **Cell Count (CC):** specialized modules handling what the AI core used to — should grow
+- **Evaporation Rate (ER):** speed of progression toward self-sufficiency — should be positive
+
+These metrics make the Cyborg Architecture's economic claims *measurable* and *testable*, not merely aspirational.
 
 The Operator Model is a sprint. The Cyborg Architecture is a practice.
 
@@ -323,6 +333,8 @@ Build soul first. Then kung fu. Then equipment. Then fusion. In that order. Alwa
 Where does the Cyborg Architecture go from here? What does the black belt look like? What does the master do?
 
 ### Multi-Agent Cyborgs
+
+*[Future work — included for completeness but acknowledged as speculative.]*
 
 The current architecture is dyadic: one human, one AI. The future is polyadic: one human, multiple specialized AI agents, each with its own kung fu, each contributing to the cyborg in different ways.
 

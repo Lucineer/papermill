@@ -89,13 +89,28 @@ Deadband equals efficiency. Efficiency equals existential good. Every unnecessar
 
 The deadband is not a fixed value — it is a design parameter that should be tuned based on the task domain, the maturity of the agent, and the cost of errors. A medical diagnosis agent needs a narrow deadband (errors are costly). A weather summary agent can afford a wide deadband (variance in wording is harmless).
 
-The key insight is that the deadband should *automatically widen* as the system matures. This can be implemented through a feedback loop:
+The key insight is that the deadband should *automatically widen* as the system matures. Here is a concrete algorithm:
 
-1. Track the frequency of deadband violations (how often the locked response falls outside tolerance).
-2. If violations are rare, widen the deadband slightly.
-3. If violations are frequent, narrow the deadband and re-lock.
+```
+DEADBAND_WIDENING ALGORITHM:
 
-Over time, this feedback loop produces an optimal deadband that minimizes compute while maintaining quality. It is the agent's metabolic rate — slow and steady once the system has found its equilibrium.
+Initialize: DBW = 0.1, SAMPLE_WINDOW = 100, WIDEN_RATE = 1.1, NARROW_RATE = 0.7
+MAX_DBW = domain_specific (e.g., 0.8 for summaries, 0.2 for medical)
+
+Every SAMPLE_WINDOW interactions:
+  violation_rate = deadband_violations / SAMPLE_WINDOW
+  
+  if violation_rate < 0.05:        # 95%+ within tolerance
+    DBW = min(DBW * WIDEN_RATE, MAX_DBW)
+  elif violation_rate > 0.20:       # >20% violations
+    DBW = DBW * NARROW_RATE
+    re-lock responses for violation patterns
+  # else: DBW stays — system is in equilibrium
+```
+
+This produces an adaptive deadband that converges on the widest tolerable width for the current task distribution. It is the agent's metabolic rate — slow and steady once the system has found its equilibrium.
+
+**Failure modes:** If the task distribution shifts suddenly (new user, new domain), the deadband may be too wide for the new inputs. The algorithm handles this through the narrow path: elevated violation rates trigger automatic narrowing and re-locking.
 
 The deadband principle also has a psychological dimension. Humans don't re-evaluate every decision they've ever made. We operate on cached judgments for the vast majority of our waking lives. "The stove is hot" is a locked response. We don't re-derive it each time we enter the kitchen. Agents should be afforded the same cognitive economy.
 
@@ -175,23 +190,25 @@ The best agent is one that needs no LLM at all — for the tasks it handles.
 
 ---
 
-## 6. The Conservation of Intelligence Theorem
+## 6. The Crystallization Principle
 
-We propose a formal principle:
+We propose a design principle, inspired by — but distinct from — the conservation of energy in physics:
 
-> **Intelligence, like energy, is conserved in a closed system.**
+> **The Crystallization Principle:** When a repo-agent writes working code, functional intelligence is not consumed — it is *transferred* from model parameters to repository structure. The system's effective capability is preserved or increased while its ongoing compute cost decreases.
 
-When a repo-agent writes working code, intelligence is not consumed — it is *transferred*. The intelligence that resided in the model's parameters moves into the repository's files. The model may become less necessary, but the system's total intelligence remains constant or grows.
+We call this "crystallization" by analogy to phase transitions: liquid intelligence (model inference, fluid and expensive) solidifies into crystalline intelligence (code, structured and cheap). The crystallized form is more durable, more auditable, and far cheaper to maintain.
 
-This is the Conservation of Intelligence theorem, and it has profound implications.
+> **Important caveat:** Intelligence is not literally a conserved quantity like energy. We cannot measure it in joules. The analogy is structural, not physical. What we *can* measure is cost, latency, and reliability — and on those metrics, crystallization is overwhelmingly favorable.
 
-Consider a system with two components: a model (M) and a repo (R). The total intelligence of the system is I = M + R. When the agent operates:
+When a repo-agent writes working code:
 
-1. **M generates code** → M decreases (the model "expends" intelligence), R increases (the repo gains intelligence). I is conserved.
-2. **The code is tested and refined** → R increases further (validated intelligence is more valuable than raw intelligence). I grows.
-3. **The code replaces the model** → M's role decreases, but R has absorbed M's intelligence. I is conserved.
+1. **M generates code** → The model's "liquid" intelligence is poured into the repo. The repo gains a permanent structure.
+2. **The code is tested and refined** → The crystal is polished. Validated code is more valuable than raw code.
+3. **The code replaces the model** → For that task path, the model is no longer needed. The crystal stands on its own.
 
 The critical insight is the *cost differential*. Intelligence in model form (compute) is expensive. Intelligence in repo form (storage) is cheap. Compute costs money per operation. Storage costs money once, then scales to near-zero marginal cost.
+
+> **But storage is not free.** Code has maintenance costs: refactoring, dependency updates, testing, documentation. The true cost ratio is not 30,000:1 (inference vs. file read) but more like 100-1000:1 (inference vs. maintained code) — still decisively in favor of crystallization, but honest about the real cost of software ownership.
 
 Storage is cheaper than compute. Always. This is not a temporary market condition — it is a law of physics. Computation requires energy. Storage requires material. Material is static; energy is consumed. A file on disk costs nothing to maintain. An inference call costs compute time, energy, carbon, and latency.
 
@@ -203,25 +220,19 @@ The economic argument is devastatingly simple:
 
 When a repo-agent hardens a frequently-used response into static code, it performs a 30,000x cost reduction on that response — forever. Multiply this across every response in a mature agent's portfolio, and the savings become existential.
 
-### The Conservation Law, Formally
+### The Crystallization Dynamics
 
-Let I_sys(t) be the total intelligence of a repo-agent system at time t. Let M(t) be the intelligence residing in the model, and R(t) be the intelligence residing in the repo.
-
-```
-I_sys(t) = M(t) + R(t)
-```
-
-The Conservation of Intelligence states:
+Let M(t) be the model dependency at time t, and R(t) be the repo's task coverage. Let C(x) be the ongoing cost function.
 
 ```
-ΔI_sys ≥ 0  (intelligence is conserved or grows)
-ΔM + ΔR ≥ 0  (loss in model is gained in repo)
-C(M) >> C(R)  (cost of model intelligence >> cost of repo intelligence)
+Effective_capability(t) ≈ M(t) + R(t)  (approximate — not a conservation law)
+C(M) >> C(R)  (model inference >> maintained code)
+As R grows, M can shrink without loss of capability
 ```
 
-Where C(x) is the cost function. Since C(R) is dominated by one-time storage cost and C(M) is dominated by recurring compute cost, the system's *ongoing* cost decreases monotonically as intelligence transfers from M to R.
+The key claim is not conservation but *cost transformation*: the system converts recurring compute cost (expensive) into one-time development cost + ongoing maintenance (cheap). This transformation is monotonic in the right architecture — each crystallized function permanently reduces the per-task inference cost.
 
-The Conservation of Intelligence theorem reframes the entire project of AI. We are not building systems that *use* intelligence. We are building systems that *accumulate* intelligence, crystallize it into structure, and amortize its cost to near-zero.
+The Crystallization Principle reframes the entire project of AI. We are not building systems that *use* intelligence. We are building systems that *accumulate* intelligence, crystallize it into structure, and amortize its cost to near-zero.
 
 ---
 
@@ -307,11 +318,13 @@ The rule is simple: **always prefer the cheapest option that meets the deadband.
 
 If static code handles the input correctly, use static code. Don't invoke a model out of habit or abundance of compute. If a cached response is within tolerance, use the cache. Only escalate up the hierarchy when the cheaper options fail the deadband test.
 
-A well-designed repo-agent should target this distribution:
+As an *aspirational target* for well-defined, repetitive task domains, a mature repo-agent might achieve:
 
 - **80% of requests** handled by static code (Phase 3-4 maturity).
 - **15% of requests** handled by cached or small-model responses.
 - **5% of requests** handled by full LLM invocation.
+
+> **Reality check:** This distribution is domain-dependent. A creative writing agent may never exceed 50/30/20. A data validation agent may reach 95/5/0. The 80/15/5 split is a north star for repetitive domains, not a universal law.
 
 This is the Pareto principle of AI: 80% of value from 20% of compute. But unlike traditional Pareto applications, this distribution should *improve over time*. A young agent might handle 20% with static code and 80% with the LLM. As it matures, the ratio inverts. The goal is not to achieve 80/20 on day one — it is to approach it asymptotically.
 
@@ -401,6 +414,8 @@ The most ethical AI is the most efficient AI. An agent that hardens itself into 
 
 This is not an argument against AI. It is an argument for *better* AI — AI that grows more efficient with use, that minimizes its ongoing resource consumption, that aspires to the same thermodynamic elegance as every other mature technology.
 
+> **Qualification:** Efficiency is necessary but not sufficient for ethical AI. An efficient system that produces harmful outputs is not ethical. The existential argument applies to systems that are already value-aligned — it makes the case that alignment should be paired with efficiency, not that efficiency alone is moral.
+
 A lightbulb that used 100 watts to produce 10 lumens would be considered defective. An AI agent that uses GPT-4-class inference to handle a request that could be served by a static lookup is equally defective. The standard is the same: minimize energy for maximum output.
 
 The repo-agent is the LED lightbulb of AI. Same illumination, fraction of the energy.
@@ -461,7 +476,7 @@ That day is the goal. Everything else is construction.
 | **Locking** | The mechanism by which a model response is committed as the persistent default when it meets deadband criteria. |
 | **Token Efficiency Ratio** | Metric: tokens consumed per task completed. Should decrease over time. |
 | **Accumulation Theorem** | The principle that accumulated context (repo quality) beats raw model capability. |
-| **Conservation of Intelligence** | The theorem that intelligence is transferred, not consumed, when code replaces model inference. |
+| **Crystallization Principle** | The principle that functional intelligence is transferred from model to repo when code replaces inference, reducing ongoing cost. (Formerly "Conservation of Intelligence" — renamed for precision.) |
 
 ---
 
@@ -500,7 +515,25 @@ Request arrives
 
 ---
 
-*This paper is a living document. As the Cocapn system matures, these principles will be refined, challenged, and extended. The conservation of intelligence is not a final answer — it is a framework for asking better questions about how AI systems should grow.*
+## 15. The Rehydration Problem
+
+A critical challenge the self-evaporation lifecycle must address: **crystallized intelligence decays.**
+
+Code rots. Dependencies deprecate. APIs change. User needs evolve. A Phase 4 bot that was perfect in March may be broken by June. The self-evaporation lifecycle is not linear — it is cyclical.
+
+We propose a **rehydration mechanism**:
+
+1. **Health monitoring.** Each crystallized cell should have a health check — a test or probe that verifies it still produces correct output.
+2. **Failure-triggered rehydration.** When a cell's health check fails, the task is escalated back up the efficiency hierarchy — from static code → cached → small model → full LLM.
+3. **Targeted re-crystallization.** The LLM handles the failure case, generates a fix, and the cell is re-crystallized with the updated logic.
+
+This means the agent oscillates between phases: a world change drops it from Phase 4 to Phase 2, then re-crystallization brings it back to Phase 4. The net trend should still be toward higher phases (as the repo accumulates more robust patterns), but individual cells will cycle.
+
+The rehydration problem is the Achilles' heel of the crystallization approach. A system that evaporates perfectly but can't rehydrate when the world changes is brittle, not mature. Future work should focus on making rehydration as automatic as evaporation.
+
+---
+
+*This paper is a living document. As the Cocapn system matures, these principles will be refined, challenged, and extended. The crystallization principle is not a final answer — it is a framework for asking better questions about how AI systems should grow.*
 
 ---
 
