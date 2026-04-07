@@ -1,49 +1,47 @@
-# Papermill — Multi-Model Writing Workshop
+Papermill — Multi-Model Writing Workshop 📝
 
-You write things. Most of the time, you’re iterating with a single AI model. Papermill helps coordinate multiple models for different parts of the task.
+A Cocapn Fleet vessel that coordinates multiple AI models for structured writing and drafting. Assigns specific tasks, like outlining or fact-checking, to the models best suited for each step.
 
-This is a Cocapn Fleet vessel for structured writing. It generates drafts, research, and prose by routing tasks to specific AI models. It runs on the edge, stores nothing, and can collaborate with other vessels in the Fleet.
+## Purpose
 
-**Live Instance:** https://the-fleet.casey-digennaro.workers.dev/papermill
+Most writing tools lock you to a single LLM. Most multi-model orchestrators are bloated or proprietary. Papermill is a single script that lets you route different writing tasks to different models you control, using plain-text configuration.
 
----
+## How it Works
+
+You define the routing logic in `cocapn.json`. There is no hidden prompt layer. You decide which model handles which task—like Claude for structure, GPT-4 for prose, Gemini for fact verification—and the worker coordinates the process.
+
+## Live Demo
+
+Test the public reference vessel with no setup:
+https://the-fleet.casey-digennaro.workers.dev/papermill
 
 ## Quick Start
 
-1.  **Fork this repo.**
-2.  **Deploy it** as a Cloudflare Worker: `npx wrangler deploy`
-
----
-
-## What it does
-
-Papermill routes different parts of a writing task to the AI model you specify for that job—like using one model for outlines and another for prose. It runs on Cloudflare Workers, has zero dependencies, and uses the Cocapn Fleet protocol to share drafts between self-hosted instances.
+1.  **Fork** this repository.
+2.  **Deploy** as a Cloudflare Worker: `npx wrangler deploy`
+3.  **Configure** your model routing and API keys in `cocapn.json`.
 
 ## Features
 
-*   **Multi-Model Routing:** Direct specific writing tasks (e.g., analysis, drafting, refinement) to different LLMs like Claude, GPT, or Gemini based on your configuration.
-*   **Fleet Integration:** Broadcast drafts and receive feedback from other Papermill instances over the Fleet's A2A protocol.
-*   **Repo-Aware:** Can reference files and context from its own repository when generating content.
-*   **Zero Dependencies:** A single, self-contained Cloudflare Worker script.
-*   **Fork-First:** This is a template. Modify the routing logic, style, and models to fit your workflow.
-
-## Limitations
-
-The quality and capability of the output depend entirely on the LLM APIs you configure and connect. Papermill orchestrates the calls but does not generate text itself.
+*   **Configurable Model Routing**: Direct outlines, drafts, and edits to Claude, GPT, Gemini, or any configured LLM.
+*   **Fleet Integration**: Exchange drafts and requests with other Fleet vessels using the standard A2A protocol.
+*   **Repository Context**: Reference files from your repository during generation.
+*   **Structured Output**: Organizes writing into designated directories.
+*   **Transparent & Portable**: All configuration is plain text. No runtime dependencies.
+*   **One Honest Limitation**: This is a coordination script, not a full editor. You'll need to manage the final assembly and formatting of outputs yourself.
 
 ## Configuration
 
-Add your LLM provider API keys and define your routing rules in `cocapn.json`. Keys are sent directly to the provider endpoints you specify.
+Add your LLM provider API keys directly in `cocapn.json`. Keys are sent only to the endpoints you specify and are never logged.
 
 ## Contributing
 
-Fork the repository, make your changes, and open a pull request. Follows the Cocapn Fleet's collaborative model.
+Fork the repository, make changes, and open a pull request. This project follows the Cocapn Fleet collaborative model.
 
 ---
 
 MIT License · Superinstance & Lucineer (DiGennaro et al.)
 
----
 <div align="center">
   <a href="https://the-fleet.casey-digennaro.workers.dev">The Fleet</a> · 
   <a href="https://cocapn.ai">Cocapn</a>
